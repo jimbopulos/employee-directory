@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React from 'react';
+import Header from './components/Header';
+import Table from './components/Table';
 
 class App extends React.Component {
   state = {
@@ -22,7 +24,12 @@ class App extends React.Component {
 
   render() {
     console.log(this.state.employee);
-    return <div className='App'></div>;
+    return (
+      <div className='container'>
+        <Header />
+        <Table />
+      </div>
+    );
   }
 }
 
