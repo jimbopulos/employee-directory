@@ -22,7 +22,7 @@ class App extends React.Component {
   };
 
   getEmployees = async () => {
-    const { data } = await axios.get('https://randomuser.me/api/?results=500', {
+    const { data } = await axios.get('https://randomuser.me/api/?results=100', {
       headers: {
         Accept: 'application/json',
       },
@@ -83,23 +83,30 @@ class App extends React.Component {
         <table className='table table-striped'>
           <thead>
             <tr>
-              <th scope='col'>Name</th>
+              <th scope='col'>(image)</th>
+              <th scope='col'>First Name</th>
+              <th scope='col'>Last Name</th>
               <th scope='col'>Email</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Bill Withers</td>
+              <td>[image]</td>
+              <td>Bill</td>
+              <td>Withers</td>
               <td>billy@bill.com</td>
             </tr>
             <tr>
-              <td>John Codetrane</td>
+              <td>(image)</td>
+              <td>John</td>
+              <td>Codetrane</td>
               <td>johnny@code.org</td>
             </tr>
-            {/* {this.state.searchedEmployees.length ? (
+            {this.state.searchedEmployees.length ? (
               this.state.searchedEmployees.map(({ name, email }) => {
                 <tr>
-                  <td>{name}</td>
+                  <td>{name.first}</td>
+                  <td>{name.last}</td>
                   <td>{email}</td>
                 </tr>;
               })
@@ -107,20 +114,9 @@ class App extends React.Component {
               <tr>
                 <td></td>
               </tr>
-            )} */}
+            )}
           </tbody>
         </table>
-        {/* {this.state.searchedEmployees.length ? (
-          this.state.searchedEmployees.map(({ name }) => <p>{name}</p>)
-        ) : (
-          <p></p>
-        )}
-        <p>
-          {this.state.employee
-            ? this.state.employee.name
-            : 'Please enter an employee name'}
-        </p>
-        <button onClick={this.getEmployee}>Search another employee</button> */}
       </div>
     );
   }
