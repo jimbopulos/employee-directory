@@ -15,11 +15,11 @@ class App extends React.Component {
     this.getEmployees();
   }
 
-  // handleChange = (event) => {
-  //   const { value } = event.target;
+  handleChange = (event) => {
+    const { value } = event.target;
 
-  //   this.setState({ search: value });
-  // };
+    this.setState({ search: value });
+  };
 
   getEmployees = async () => {
     const { data } = await axios.get(
@@ -34,23 +34,45 @@ class App extends React.Component {
     this.setState({ employees: data.results });
   };
 
-  // search = async () => {
-  //   const {
-  //     data: { results },
-  //   } = await axios.get('https://randomuser.me/api/', {
-  //     headers: {
-  //       Accept: 'application/json',
-  //     },
-  //   });
-  //   console.log(results);
-  //   this.setState({ searchedEmployees: results });
-  // };
+  search = async () => {
+    const {
+      data: { results },
+    } = await axios.get('https://randomuser.me/api/', {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+    console.log(results);
+    this.setState({ searchedEmployees: results });
+  };
 
   render() {
     console.log(this.state.employees);
     return (
       <div className='container'>
         <Header />
+        <nav className='navbar navbar-light bg-light'>
+          <div className='container-fluid'>
+            <form className='d-flex'>
+              <input
+                className='form-control me-2'
+                type='search'
+                placeholder='Search'
+                aria-label='Search'
+                name='search'
+                // value={this.state.search}
+                // onChange={this.handleChange}
+              />
+              <button
+                className='btn btn-outline-primary'
+                type='submit'
+                // onClick={this.search}
+              >
+                Search
+              </button>
+            </form>
+          </div>
+        </nav>
 
         <table className='table table-striped'>
           <thead>
@@ -63,9 +85,9 @@ class App extends React.Component {
           </thead>
           <tbody>
             {this.state.employees.length ? (
-              this.state.employees.map(({ name, email, picture }) => {
+              this.state.employees.map(({ name, email, picture, cell }) => {
                 return (
-                  <tr>
+                  <tr key={cell}>
                     <td>
                       <img src={picture.medium} alt={name.first} />
                     </td>
@@ -76,33 +98,10 @@ class App extends React.Component {
                 );
               })
             ) : (
-              <p>No employees to display</p>
+              <tr></tr>
             )}
           </tbody>
         </table>
-
-        {/* <p>
-          {this.state.employees
-            ? this.state.employees.name
-            : 'Better luck next time'}
-        </p> */}
-
-        {/* {this.state.employees.length &&
-          this.state.employees.map((results) => {
-            return (
-              <ul>
-                <li>{results.name.first}</li>
-              </ul>
-            );
-          })} */}
-
-        {/* <p>
-          {this.state.employee
-            ? this.state.employee.name
-            : "Couldn't find employee"}
-        </p>
-        <button onClick={this.getEmployees}>Find All Employees</button> */}
-
         {/* <input
           type='text'
           value={this.state.search}
@@ -121,7 +120,6 @@ class App extends React.Component {
         ) : (
           <p></p>
         )} */}
-
         {/* <Searchbar />
         <Table /> */}
       </div>
