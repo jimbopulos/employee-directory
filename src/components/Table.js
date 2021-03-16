@@ -12,7 +12,7 @@
 //         </tr>
 //       </thead>
 //       <tbody>
-//         <tr>
+//         {/* <tr>
 //           <td>(image)</td>
 //           <td>Bill</td>
 //           <td>Withers</td>
@@ -23,15 +23,15 @@
 //           <td>John</td>
 //           <td>Codetrane</td>
 //           <td>johnny@code.org</td>
-//         </tr>
-//         {/* {this.state.searchedEmployees.length &&
+//         </tr> */}
+//         {this.state.searchedEmployees.length &&
 //               this.state.searchedEmployees.map(({ name, email }) => {
 //                 <tr>
 //                   <td>{name.first}</td>
 //                   <td>{name.last}</td>
 //                   <td>{email}</td>
 //                 </tr>;
-//               })} */}
+//               })}
 //       </tbody>
 //     </table>
 //   );

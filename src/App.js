@@ -6,7 +6,7 @@ import Header from './components/Header';
 
 class App extends React.Component {
   state = {
-    employee: null,
+    employees: [],
     search: '',
     searchedEmployees: [],
   };
@@ -15,47 +15,95 @@ class App extends React.Component {
     this.getEmployees();
   }
 
-  handleChange = (event) => {
-    const { value } = event.target;
+  // handleChange = (event) => {
+  //   const { value } = event.target;
 
-    this.setState({ search: value });
-  };
+  //   this.setState({ search: value });
+  // };
 
   getEmployees = async () => {
-    const { data } = await axios.get('https://randomuser.me/api/?results=100', {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
+    const { data } = await axios.get(
+      'https://randomuser.me/api/?nat=us,gb,ca&results=50',
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+      }
+    );
     console.log(data);
-    this.setState({ employee: data });
+    this.setState({ employees: data.results });
   };
 
-  search = async () => {
-    const {
-      data: { results },
-    } = await axios.get('https://randomuser.me/api/', {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    console.log(results);
-    this.setState({ searchedEmployees: results });
-  };
+  // search = async () => {
+  //   const {
+  //     data: { results },
+  //   } = await axios.get('https://randomuser.me/api/', {
+  //     headers: {
+  //       Accept: 'application/json',
+  //     },
+  //   });
+  //   console.log(results);
+  //   this.setState({ searchedEmployees: results });
+  // };
 
   render() {
-    //console.log(this.state.employee);
+    console.log(this.state.employees);
     return (
       <div className='container'>
         <Header />
-        <p>
+
+        <table className='table table-striped'>
+          <thead>
+            <tr>
+              <th scope='col'>Picture</th>
+              <th scope='col'>First Name</th>
+              <th scope='col'>Last Name</th>
+              <th scope='col'>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.employees.length ? (
+              this.state.employees.map(({ name, email, picture }) => {
+                return (
+                  <tr>
+                    <td>
+                      <img src={picture.medium} alt={name.first} />
+                    </td>
+                    <td>{name.first}</td>
+                    <td>{name.last}</td>
+                    <td>{email}</td>
+                  </tr>
+                );
+              })
+            ) : (
+              <p>No employees to display</p>
+            )}
+          </tbody>
+        </table>
+
+        {/* <p>
+          {this.state.employees
+            ? this.state.employees.name
+            : 'Better luck next time'}
+        </p> */}
+
+        {/* {this.state.employees.length &&
+          this.state.employees.map((results) => {
+            return (
+              <ul>
+                <li>{results.name.first}</li>
+              </ul>
+            );
+          })} */}
+
+        {/* <p>
           {this.state.employee
             ? this.state.employee.name
             : "Couldn't find employee"}
         </p>
-        <button onClick={this.getEmployees}>Find All Employees</button>
+        <button onClick={this.getEmployees}>Find All Employees</button> */}
 
-        <input
+        {/* <input
           type='text'
           value={this.state.search}
           name='search'
@@ -64,13 +112,15 @@ class App extends React.Component {
         <button onClick={this.search}>Search Employee</button>
         {this.state.searchedEmployees.length ? (
           this.state.searchedEmployees.map(({ name, email }) => {
-            <p>
-              {name.first} {name.last} {email}
-            </p>;
+            <tr>
+              <td>{name.first}</td>
+              <td>{name.last}</td>
+              <td>{email}</td>
+            </tr>;
           })
         ) : (
           <p></p>
-        )}
+        )} */}
 
         {/* <Searchbar />
         <Table /> */}
