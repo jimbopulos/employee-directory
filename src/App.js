@@ -34,15 +34,15 @@ class App extends React.Component {
     this.setState({ employees: data.results });
   };
 
-  search = async () => {
-    const {
-      data: { results },
-    } = await axios.get('https://randomuser.me/api/', {
-      headers: {
-        Accept: 'application/json',
-      },
+  search = async (event) => {
+    event.preventDefault();
+    const { results } = event.target;
+    const filteredSearch = results.filter((data) => {
+      if (data.name.toLowerCase().includes(this.state.search.toLowerCase())) {
+        return data;
+      }
     });
-    console.log(results);
+    await console.log(filteredSearch);
     this.setState({ searchedEmployees: results });
   };
 
@@ -51,28 +51,26 @@ class App extends React.Component {
     return (
       <div className='container'>
         <Header />
-        <nav className='navbar navbar-light bg-light'>
-          <div className='container-fluid'>
-            <form className='d-flex'>
-              <input
-                className='form-control me-2'
-                type='search'
-                placeholder='Search'
-                aria-label='Search'
-                name='search'
-                // value={this.state.search}
-                // onChange={this.handleChange}
-              />
-              <button
-                className='btn btn-outline-primary'
-                type='submit'
-                // onClick={this.search}
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </nav>
+        <div>
+          <form className='d-flex'>
+            <input
+              className='form-control me-2'
+              type='text'
+              placeholder='search employees'
+              aria-label='Search'
+              name='search'
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            <button
+              className='btn btn-outline-primary'
+              type='submit'
+              onClick={this.search}
+            >
+              Search
+            </button>
+          </form>
+        </div>
 
         <table className='table table-striped'>
           <thead>
@@ -100,26 +98,28 @@ class App extends React.Component {
             ) : (
               <tr></tr>
             )}
+
+            {this.state.searchedEmployees.length ? (
+              this.state.searchedEmployees.map(
+                ({ name, email, picture, cell }) => {
+                  return (
+                    <tr key={cell}>
+                      <td>
+                        <img src={picture.medium} alt={name.first} />
+                      </td>
+                      <td>{name.first}</td>
+                      <td>{name.last}</td>
+                      <td>{email}</td>
+                    </tr>
+                  );
+                }
+              )
+            ) : (
+              <tr></tr>
+            )}
           </tbody>
         </table>
-        {/* <input
-          type='text'
-          value={this.state.search}
-          name='search'
-          onChange={this.handleChange}
-        />
-        <button onClick={this.search}>Search Employee</button>
-        {this.state.searchedEmployees.length ? (
-          this.state.searchedEmployees.map(({ name, email }) => {
-            <tr>
-              <td>{name.first}</td>
-              <td>{name.last}</td>
-              <td>{email}</td>
-            </tr>;
-          })
-        ) : (
-          <p></p>
-        )} */}
+
         {/* <Searchbar />
         <Table /> */}
       </div>
