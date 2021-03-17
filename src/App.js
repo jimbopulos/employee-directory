@@ -6,9 +6,9 @@ import Header from './components/Header';
 
 class App extends React.Component {
   state = {
+    searchedEmployees: [],
     employees: [],
     search: '',
-    searchedEmployees: [],
   };
 
   componentDidMount() {
@@ -34,20 +34,62 @@ class App extends React.Component {
     this.setState({ employees: data.results });
   };
 
-  search = async (event) => {
-    event.preventDefault();
-    const { results } = event.target;
-    const filteredSearch = results.filter((data) => {
-      if (data.name.toLowerCase().includes(this.state.search.toLowerCase())) {
-        return data;
-      }
-    });
-    await console.log(filteredSearch);
-    this.setState({ searchedEmployees: results });
+  //renderEmployeeSearch method
+  renderEmployeeSearch = (employee) => {
+    // event.preventDefault();
+
+    const { search } = this.state;
+
+    //setup condition so that if there is a search term, filter
+    if (search !== '' && employee.name.first.indexOf(search) === -1) {
+      return null;
+    }
+    // if not, map normally
+    return (
+      <tr key={employee.cell}>
+        <td>
+          <img src={employee.picture.medium} alt={employee.name.first} />
+        </td>
+        <td>{employee.name.first}</td>
+        <td>{employee.name.last}</td>
+        <td>{employee.email}</td>
+      </tr>
+    );
   };
 
+  // search = async (event, employee) => {
+  //   event.preventDefault();
+
+  //   const searchedEmployees = this.state.employees
+  //     .filter((employee) => {
+  //       if (
+  //         employee.name.first
+  //           .toLowerCase()
+  //           .includes(this.state.search.toLowerCase()) ||
+  //         employee.name.first
+  //           .toLowerCase()
+  //           .includes(this.state.search.toLowerCase())
+  //       ) {
+  //         return true;
+  //       }
+  //     })
+  //     .map(({ name, email, picture, cell }) => {
+  //       return (
+  //         <tr key={cell}>
+  //           <td>
+  //             <img src={picture.medium} alt={name.first} />
+  //           </td>
+  //           <td>{name.first}</td>
+  //           <td>{name.last}</td>
+  //           <td>{email}</td>
+  //         </tr>
+  //       );
+  //     });
+  //   this.setState({ searchedEmployees });
+  // };
+
   render() {
-    console.log(this.state.employees);
+    // console.log(this.state.employees);
     return (
       <div className='container'>
         <Header />
@@ -65,7 +107,7 @@ class App extends React.Component {
             <button
               className='btn btn-outline-primary'
               type='submit'
-              onClick={this.search}
+              onClick={this.renderEmployeeSearch}
             >
               Search
             </button>
@@ -82,7 +124,7 @@ class App extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.employees.length ? (
+            {/* {this.state.employees.length ? (
               this.state.employees.map(({ name, email, picture, cell }) => {
                 return (
                   <tr key={cell}>
@@ -97,29 +139,12 @@ class App extends React.Component {
               })
             ) : (
               <tr></tr>
-            )}
-
-            {this.state.searchedEmployees.length ? (
-              this.state.searchedEmployees.map(
-                ({ name, email, picture, cell }) => {
-                  return (
-                    <tr key={cell}>
-                      <td>
-                        <img src={picture.medium} alt={name.first} />
-                      </td>
-                      <td>{name.first}</td>
-                      <td>{name.last}</td>
-                      <td>{email}</td>
-                    </tr>
-                  );
-                }
-              )
-            ) : (
-              <tr></tr>
-            )}
+            )} */}
+            {this.state.employees.map((employee) => {
+              return this.renderEmployeeSearch(employee);
+            })}
           </tbody>
         </table>
-
         {/* <Searchbar />
         <Table /> */}
       </div>
