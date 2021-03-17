@@ -1,10 +1,10 @@
 const Header = () => {
   return (
-    <nav className='navbar navbar-light bg-light'>
+    <div className='header'>
       <div className='container-fluid'>
-        <span className='navbar-brand mb-0 h1'>Employee Directory</span>
+        <h1 className='title'>Employee Directory</h1>
       </div>
-    </nav>
+    </div>
   );
 };
 

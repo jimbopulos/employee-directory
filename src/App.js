@@ -113,39 +113,41 @@ class App extends React.Component {
           filterSearch={this.filterdEmployees}
           sort={this.sortedEmployees}
         /> */}
-        <table className='table table-striped'>
-          <thead>
-            <tr>
-              <th scope='col'>Picture</th>
-              <th scope='col'>First Name </th>
-              <th scope='col'>
-                Last Name
-                <button
-                  className='btn btn-primary'
-                  onClick={() => this.onSort('ASC')}
-                >
-                  <i className='fas fa-sort-alpha-down'></i>
-                </button>
-                <button
-                  className='btn btn-danger'
-                  onClick={() => this.onSort('DESC')}
-                >
-                  <i className='fas fa-sort-alpha-down-alt'></i>
-                </button>
-              </th>
-              <th scope='col'>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.search
-              ? filteredEmployees.map((employee) => {
-                  return this.renderEmployeeSearch(employee);
-                })
-              : sortedEmployees.map((employee, index) => {
-                  return this.renderEmployeeSearch(employee, index);
-                })}
-          </tbody>
-        </table>
+        <div className='employee-table'>
+          <table className='table table-striped'>
+            <thead>
+              <tr>
+                <th scope='col'>Picture</th>
+                <th scope='col'>First Name </th>
+                <th scope='col'>
+                  Last Name
+                  <button
+                    className='btn btn-primary'
+                    onClick={() => this.onSort('ASC')}
+                  >
+                    <i className='fas fa-sort-alpha-down'></i>
+                  </button>
+                  <button
+                    className='btn btn-danger'
+                    onClick={() => this.onSort('DESC')}
+                  >
+                    <i className='fas fa-sort-alpha-down-alt'></i>
+                  </button>
+                </th>
+                <th scope='col'>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.search
+                ? filteredEmployees.map((employee) => {
+                    return this.renderEmployeeSearch(employee);
+                  })
+                : sortedEmployees.map((employee, index) => {
+                    return this.renderEmployeeSearch(employee, index);
+                  })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

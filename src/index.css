@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  font-size: large;
+}
+
+.container {
+  border-radius: 7px;
+  margin-top: 2%;
+  margin-bottom: 5%;
+  box-shadow: 0px 0px 12px grey;
+}
+
+.header {
+  margin-left: 2%;
+  margin-right: 2%;
+  /* margin-bottom: 2%; */
+  text-align: center;
+  padding: 7.5%;
+  /* background-color: #dee2e6; */
+}
+
+.title {
+  font-weight: bold;
+}
+
+.form-control,
+.btn-outline-primary {
+  box-shadow: 0 0 3px grey;
+}
+
+.btn-danger,
+.btn-primary {
+  margin-left: 2%;
+}
+
+.employee-table {
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 5%;
+  box-shadow: 0 0 5px grey;
+}
