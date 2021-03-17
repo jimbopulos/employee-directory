@@ -2,7 +2,7 @@ import React from 'react';
 
 const Searchbar = ({ value, onChange, onClick }) => {
   return (
-    <div>
+    <div className='search-bar'>
       <form className='d-flex'>
         <input
           className='form-control me-2'
@@ -14,7 +14,7 @@ const Searchbar = ({ value, onChange, onClick }) => {
           onChange={onChange}
         />
         <button
-          className='btn btn-outline-primary'
+          className='btn btn-outline-primary search'
           type='submit'
           onClick={onClick}
         >
