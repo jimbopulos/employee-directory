@@ -15,10 +15,12 @@ A basic application for viewing non-sensitive data about fellow employees at a c
 
 ## Usage
 
-Navigate the deployed URL to begin.
+Navigate the [Deployed URL](https://jimbopulos.github.io/employee-directory/) to begin.
 
 - Search for employees by either first or last name
 - Employees can be ordered by last name alphabetically, by operating the `A-Z` or `Z-A` buttons
+
+![Employee Directory screenshot](images/user-directory.png)
 
 ## Technologies
 
