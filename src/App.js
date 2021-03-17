@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Header from './components/Header';
-// import Searchbar from './components/Searchbar';
+import Searchbar from './components/Searchbar';
 // import Table from './components/Table';
 
 class App extends React.Component {
@@ -82,7 +82,9 @@ class App extends React.Component {
     const { search } = this.state;
     const filteredEmployees = this.state.employees.filter((employee) => {
       return (
-        employee.name.first.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        employee.name.first.toLowerCase().indexOf(search.toLowerCase()) !==
+          -1 ||
+        employee.name.last.toLowerCase().indexOf(search.toLowerCase()) !== -1
       );
     });
 
@@ -95,27 +97,11 @@ class App extends React.Component {
     return (
       <div className='container'>
         <Header />
-        <div>
-          <form className='d-flex'>
-            <input
-              className='form-control me-2'
-              type='text'
-              placeholder='search employees'
-              aria-label='Search'
-              name='search'
-              value={this.state.search}
-              onChange={this.handleChange}
-            />
-            <button
-              className='btn btn-outline-primary'
-              type='submit'
-              onClick={this.search}
-            >
-              Search
-            </button>
-          </form>
-        </div>
-
+        <Searchbar
+          value={this.state.search}
+          onChange={this.handleChange}
+          onClick={this.search}
+        />
         <table className='table table-striped'>
           <thead>
             <tr>
@@ -127,13 +113,13 @@ class App extends React.Component {
                   className='btn btn-primary'
                   onClick={() => this.onSort('ASC')}
                 >
-                  <i class='fas fa-sort-alpha-down'></i>
+                  <i className='fas fa-sort-alpha-down'></i>
                 </button>
                 <button
                   className='btn btn-danger'
                   onClick={() => this.onSort('DESC')}
                 >
-                  <i class='fas fa-sort-alpha-down-alt'></i>
+                  <i className='fas fa-sort-alpha-down-alt'></i>
                 </button>
               </th>
               <th scope='col'>Email</th>
@@ -149,8 +135,7 @@ class App extends React.Component {
                 })}
           </tbody>
         </table>
-        {/* <Searchbar />
-        <Table /> */}
+        {/* <Table /> */}
       </div>
     );
   }
