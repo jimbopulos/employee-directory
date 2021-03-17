@@ -9,7 +9,7 @@ class App extends React.Component {
     searchedEmployees: [],
     employees: [],
     search: '',
-    sort: 'asc',
+    sortType: 'ASC',
   };
 
   componentDidMount() {
@@ -74,12 +74,22 @@ class App extends React.Component {
     this.setState({ searchedEmployees: search });
   };
 
+  onSort = (sortType) => {
+    this.setState({ sortType });
+  };
+
   render() {
     const { search } = this.state;
     const filteredEmployees = this.state.employees.filter((employee) => {
       return (
         employee.name.first.toLowerCase().indexOf(search.toLowerCase()) !== -1
       );
+    });
+
+    const { employees, sortType } = this.state;
+    const sortedEmployees = employees.sort((a, b) => {
+      const isReversed = sortType === 'ASC' ? 1 : -1;
+      return isReversed * a.name.last.localeCompare(b.name.last);
     });
 
     return (
@@ -110,15 +120,33 @@ class App extends React.Component {
           <thead>
             <tr>
               <th scope='col'>Picture</th>
-              <th scope='col'>First Name</th>
-              <th scope='col'>Last Name</th>
+              <th scope='col'>First Name </th>
+              <th scope='col'>
+                Last Name
+                <button
+                  className='btn btn-primary'
+                  onClick={() => this.onSort('ASC')}
+                >
+                  <i class='fas fa-sort-alpha-down'></i>
+                </button>
+                <button
+                  className='btn btn-danger'
+                  onClick={() => this.onSort('DESC')}
+                >
+                  <i class='fas fa-sort-alpha-down-alt'></i>
+                </button>
+              </th>
               <th scope='col'>Email</th>
             </tr>
           </thead>
           <tbody>
-            {filteredEmployees.map((employee) => {
-              return this.renderEmployeeSearch(employee);
-            })}
+            {this.state.search
+              ? filteredEmployees.map((employee) => {
+                  return this.renderEmployeeSearch(employee);
+                })
+              : sortedEmployees.map((employee, index) => {
+                  return this.renderEmployeeSearch(employee, index);
+                })}
           </tbody>
         </table>
         {/* <Searchbar />
