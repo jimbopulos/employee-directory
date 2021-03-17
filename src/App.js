@@ -41,7 +41,12 @@ class App extends React.Component {
     const { search } = this.state;
 
     //setup condition so that if there is a search term, filter
-    if (search !== '' && employee.name.first.indexOf(search) === -1) {
+    if (
+      search !== '' &&
+      employee.name.first.toLowerCase().indexOf(search) === -1 &&
+      search !== '' &&
+      employee.name.last.toLowerCase().indexOf(search) === -1
+    ) {
       return null;
     }
     // if not, map normally
@@ -57,39 +62,32 @@ class App extends React.Component {
     );
   };
 
-  // search = async (event, employee) => {
-  //   event.preventDefault();
+  search = (event) => {
+    event.preventDefault();
 
-  //   const searchedEmployees = this.state.employees
-  //     .filter((employee) => {
-  //       if (
-  //         employee.name.first
-  //           .toLowerCase()
-  //           .includes(this.state.search.toLowerCase()) ||
-  //         employee.name.first
-  //           .toLowerCase()
-  //           .includes(this.state.search.toLowerCase())
-  //       ) {
-  //         return true;
-  //       }
-  //     })
-  //     .map(({ name, email, picture, cell }) => {
-  //       return (
-  //         <tr key={cell}>
-  //           <td>
-  //             <img src={picture.medium} alt={name.first} />
-  //           </td>
-  //           <td>{name.first}</td>
-  //           <td>{name.last}</td>
-  //           <td>{email}</td>
-  //         </tr>
-  //       );
-  //     });
-  //   this.setState({ searchedEmployees });
-  // };
+    const { search } = this.state;
+
+    if (
+      search === this.state.employees[0].name.first ||
+      search === this.state.employees[0].name.last
+    ) {
+      this.state.employees.map(({ name, email, picture, cell }) => {
+        return (
+          <tr key={cell}>
+            <td>
+              <img src={picture.medium} alt={name.first} />
+            </td>
+            <td>{name.first}</td>
+            <td>{name.last}</td>
+            <td>{email}</td>
+          </tr>
+        );
+      });
+    }
+    this.setState({ searchedEmployees: search });
+  };
 
   render() {
-    // console.log(this.state.employees);
     return (
       <div className='container'>
         <Header />
@@ -107,7 +105,7 @@ class App extends React.Component {
             <button
               className='btn btn-outline-primary'
               type='submit'
-              onClick={this.renderEmployeeSearch}
+              onClick={this.search}
             >
               Search
             </button>
@@ -124,22 +122,6 @@ class App extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {/* {this.state.employees.length ? (
-              this.state.employees.map(({ name, email, picture, cell }) => {
-                return (
-                  <tr key={cell}>
-                    <td>
-                      <img src={picture.medium} alt={name.first} />
-                    </td>
-                    <td>{name.first}</td>
-                    <td>{name.last}</td>
-                    <td>{email}</td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr></tr>
-            )} */}
             {this.state.employees.map((employee) => {
               return this.renderEmployeeSearch(employee);
             })}
