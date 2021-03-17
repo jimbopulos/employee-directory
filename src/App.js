@@ -9,6 +9,7 @@ class App extends React.Component {
     searchedEmployees: [],
     employees: [],
     search: '',
+    sort: 'asc',
   };
 
   componentDidMount() {
@@ -36,20 +37,6 @@ class App extends React.Component {
 
   //renderEmployeeSearch method
   renderEmployeeSearch = (employee) => {
-    // event.preventDefault();
-
-    const { search } = this.state;
-
-    //setup condition so that if there is a search term, filter
-    if (
-      search !== '' &&
-      employee.name.first.toLowerCase().indexOf(search) === -1 &&
-      search !== '' &&
-      employee.name.last.toLowerCase().indexOf(search) === -1
-    ) {
-      return null;
-    }
-    // if not, map normally
     return (
       <tr key={employee.cell}>
         <td>
@@ -88,6 +75,13 @@ class App extends React.Component {
   };
 
   render() {
+    const { search } = this.state;
+    const filteredEmployees = this.state.employees.filter((employee) => {
+      return (
+        employee.name.first.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      );
+    });
+
     return (
       <div className='container'>
         <Header />
@@ -122,7 +116,7 @@ class App extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.employees.map((employee) => {
+            {filteredEmployees.map((employee) => {
               return this.renderEmployeeSearch(employee);
             })}
           </tbody>
