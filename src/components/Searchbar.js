@@ -13,13 +13,13 @@ const Searchbar = ({ value, onChange, onClick }) => {
           value={value}
           onChange={onChange}
         />
-        <button
+        {/* <button
           className='btn btn-outline-primary search'
           type='submit'
           onClick={onClick}
         >
           Search
-        </button>
+        </button> */}
       </form>
     </div>
   );
