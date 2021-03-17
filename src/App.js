@@ -22,6 +22,7 @@ class App extends React.Component {
     this.setState({ search: value });
   };
 
+  // fetch data from API
   getEmployees = async () => {
     const { data } = await axios.get(
       'https://randomuser.me/api/?nat=us,gb,ca&results=50',
@@ -35,7 +36,7 @@ class App extends React.Component {
     this.setState({ employees: data.results });
   };
 
-  //renderEmployeeSearch method
+  // render employees to page
   renderEmployeeSearch = (employee) => {
     return (
       <tr key={employee.cell}>
@@ -49,6 +50,7 @@ class App extends React.Component {
     );
   };
 
+  // search for employees by name
   search = (event) => {
     event.preventDefault();
 
@@ -74,6 +76,7 @@ class App extends React.Component {
     this.setState({ searchedEmployees: search });
   };
 
+  // sort employees by alphabetical order
   onSort = (sortType) => {
     this.setState({ sortType });
   };
@@ -102,6 +105,14 @@ class App extends React.Component {
           onChange={this.handleChange}
           onClick={this.search}
         />
+        {/* <Table
+          onClickASC={() => this.onSort('ASC')}
+          onClickDESC={() => this.onSort('DESC')}
+          search={this.state.search}
+          renderSearch={this.renderEmployeeSearch}
+          filterSearch={this.filterdEmployees}
+          sort={this.sortedEmployees}
+        /> */}
         <table className='table table-striped'>
           <thead>
             <tr>
@@ -135,7 +146,6 @@ class App extends React.Component {
                 })}
           </tbody>
         </table>
-        {/* <Table /> */}
       </div>
     );
   }
