@@ -2,11 +2,15 @@
   box-sizing: border-box;
   font-size: large;
 }
+tbody {
+  margin-bottom: 2%;
+}
 
 .container {
   border-radius: 7px;
   margin-top: 2%;
   margin-bottom: 5%;
+  padding: 1%;
   box-shadow: 0px 0px 12px grey;
 }
 
